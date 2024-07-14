@@ -1,8 +1,6 @@
 #Imports
-from os import uname_result
 from tkinter import *
 from tkinter.font import BOLD
-from turtle import position, width
 
 #Set Version Number
 Version = "0.1.0"
@@ -68,6 +66,19 @@ def flight_freeze_on():
     flight_freeze.grid(row = 0, column = 0, rowspan = 3, sticky = W+E+N+S, padx = 5, pady = 5)
     if on_freezes_page:
         freezes_frame.pack(fill = BOTH, expand = TRUE)
+    
+    if heading_freeze == False:
+        heading_freeze_on()
+    if position_freeze == False:
+        position_freeze_on()
+    if altitude_freeze == False:
+        altitude_freeze_on()
+    if airspeed_freeze == False:
+        airspeed_freeze_on()
+    if fuel_freeze == False:
+        fuel_freeze_on()
+    if time_freeze == False:
+        time_freeze_on()
         
 def flight_freeze_off():
     global heading_freeze, position_freeze, altitude_freeze, airspeed_freeze, fuel_freeze, time_freeze, on_flight_freeze, freezes_frame, on_freezes_page
@@ -99,6 +110,20 @@ def flight_freeze_off():
     flight_freeze.grid(row = 0, column = 0, rowspan = 3, sticky = W+E+N+S, padx = 5, pady = 5)
     if on_freezes_page:
         freezes_frame.pack(fill = BOTH, expand = TRUE)
+        
+    heading_freeze = False
+    position_freeze = False
+    altitude_freeze = False
+    airspeed_freeze = False
+    fuel_freeze = False
+    time_freeze = False
+
+    heading_freeze_off()
+    position_freeze_off()
+    altitude_freeze_off()
+    airspeed_freeze_off()
+    fuel_freeze_off()
+    time_freeze_off()
     
 def heading_freeze_on():
     global heading_freeze, position_freeze, altitude_freeze, airspeed_freeze, fuel_freeze, time_freeze, on_flight_freeze, freezes_frame
@@ -115,7 +140,10 @@ def heading_freeze_on():
                                    )
     heading_freeze_button.grid(row = 0, column = 1, sticky = N+E+S+W, padx = 5, pady = 5)
 
-    print("heading Freeze")
+    if heading_freeze == True and position_freeze == True and altitude_freeze == True and airspeed_freeze == True and fuel_freeze == True and time_freeze == True:
+        flight_freeze_on()
+
+    print("Heading Freeze")
     
 def heading_freeze_off():
     global heading_freeze, position_freeze, altitude_freeze, airspeed_freeze, fuel_freeze, time_freeze, on_flight_freeze, freezes_frame
@@ -131,6 +159,35 @@ def heading_freeze_off():
                                    cursor = "hand2"
                                    )
     heading_freeze_button.grid(row = 0, column = 1, sticky = N+E+S+W, padx = 5, pady = 5)
+
+    if on_flight_freeze == True:
+        flight_freeze_menu = Button(full_frame,
+                                text = "Flight Freeze",
+                                command = flight_freeze_on,
+                                font = (Font_1, 30, BOLD),
+                                background = Un_Clicked_Background,
+                                fg = Un_clicked_Text,
+                                border = 0,
+                                cursor = "hand2"
+                                )
+        flight_freeze_menu.grid(row = 2, column = 0, sticky = W+E+N+S, padx = 2, pady = 4)
+        on_flight_freeze = False
+        full_frame.pack(anchor=N, fill = BOTH, expand = TRUE)
+        print("Flight Freeze", on_flight_freeze)
+    
+
+        flight_freeze = Button(freezes_frame,
+                                    text = "Flight\nFreeze",
+                                    command = flight_freeze_on,
+                                    font = (Font_1, 60, BOLD),
+                                    background = Un_Clicked_Background,
+                                    fg = Un_clicked_Text,
+                                    border = 0,
+                                    cursor = "hand2"
+                                    )
+        flight_freeze.grid(row = 0, column = 0, rowspan = 3, sticky = W+E+N+S, padx = 5, pady = 5)
+        if on_freezes_page:
+            freezes_frame.pack(fill = BOTH, expand = TRUE)
 
     print("Heading Freeze")
     
@@ -148,6 +205,9 @@ def position_freeze_on():
                                    cursor = "hand2"
                                    )
     position_freeze_button.grid(row = 0, column = 2, sticky = N+E+S+W, padx = 5, pady = 5)
+    
+    if heading_freeze == True and position_freeze == True and altitude_freeze == True and airspeed_freeze == True and fuel_freeze == True and time_freeze == True:
+        flight_freeze_on()
 
     print("Position Freeze")
     
@@ -166,6 +226,35 @@ def position_freeze_off():
                                    )
     position_freeze_button.grid(row = 0, column = 2, sticky = N+E+S+W, padx = 5, pady = 5)
     
+    if on_flight_freeze == True:
+        flight_freeze_menu = Button(full_frame,
+                                text = "Flight Freeze",
+                                command = flight_freeze_on,
+                                font = (Font_1, 30, BOLD),
+                                background = Un_Clicked_Background,
+                                fg = Un_clicked_Text,
+                                border = 0,
+                                cursor = "hand2"
+                                )
+        flight_freeze_menu.grid(row = 2, column = 0, sticky = W+E+N+S, padx = 2, pady = 4)
+        on_flight_freeze = False
+        full_frame.pack(anchor=N, fill = BOTH, expand = TRUE)
+        print("Flight Freeze", on_flight_freeze)
+    
+
+        flight_freeze = Button(freezes_frame,
+                                    text = "Flight\nFreeze",
+                                    command = flight_freeze_on,
+                                    font = (Font_1, 60, BOLD),
+                                    background = Un_Clicked_Background,
+                                    fg = Un_clicked_Text,
+                                    border = 0,
+                                    cursor = "hand2"
+                                    )
+        flight_freeze.grid(row = 0, column = 0, rowspan = 3, sticky = W+E+N+S, padx = 5, pady = 5)
+        if on_freezes_page:
+            freezes_frame.pack(fill = BOTH, expand = TRUE)
+
     print("Position Freeze")
     
 def altitude_freeze_on():
@@ -182,6 +271,9 @@ def altitude_freeze_on():
                                    cursor = "hand2"
                                    )
     altitude_freeze_button.grid(row = 1, column = 1, sticky = N+E+S+W, padx = 5, pady = 5)
+
+    if heading_freeze == True and position_freeze == True and altitude_freeze == True and airspeed_freeze == True and fuel_freeze == True and time_freeze == True:
+        flight_freeze_on()
 
     print("Altitude Freeze")
     
@@ -200,6 +292,35 @@ def altitude_freeze_off():
                                    )
     altitude_freeze_button.grid(row = 1, column = 1, sticky = N+E+S+W, padx = 5, pady = 5)
 
+    if on_flight_freeze == True:
+        flight_freeze_menu = Button(full_frame,
+                                text = "Flight Freeze",
+                                command = flight_freeze_on,
+                                font = (Font_1, 30, BOLD),
+                                background = Un_Clicked_Background,
+                                fg = Un_clicked_Text,
+                                border = 0,
+                                cursor = "hand2"
+                                )
+        flight_freeze_menu.grid(row = 2, column = 0, sticky = W+E+N+S, padx = 2, pady = 4)
+        on_flight_freeze = False
+        full_frame.pack(anchor=N, fill = BOTH, expand = TRUE)
+        print("Flight Freeze", on_flight_freeze)
+    
+
+        flight_freeze = Button(freezes_frame,
+                                    text = "Flight\nFreeze",
+                                    command = flight_freeze_on,
+                                    font = (Font_1, 60, BOLD),
+                                    background = Un_Clicked_Background,
+                                    fg = Un_clicked_Text,
+                                    border = 0,
+                                    cursor = "hand2"
+                                    )
+        flight_freeze.grid(row = 0, column = 0, rowspan = 3, sticky = W+E+N+S, padx = 5, pady = 5)
+        if on_freezes_page:
+            freezes_frame.pack(fill = BOTH, expand = TRUE)
+
     print("Altitude Freeze")
     
 def airspeed_freeze_on():
@@ -216,6 +337,9 @@ def airspeed_freeze_on():
                                    cursor = "hand2"
                                    )
     airspeed_freeze_button.grid(row = 1, column = 2, sticky = N+E+S+W, padx = 5, pady = 5)
+
+    if heading_freeze == True and position_freeze == True and altitude_freeze == True and airspeed_freeze == True and fuel_freeze == True and time_freeze == True:
+        flight_freeze_on()
 
     print("Airspeed Freeze")
     
@@ -234,6 +358,35 @@ def airspeed_freeze_off():
                                    )
     airspeed_freeze_button.grid(row = 1, column = 2, sticky = N+E+S+W, padx = 5, pady = 5)
     
+    if on_flight_freeze == True:
+        flight_freeze_menu = Button(full_frame,
+                                text = "Flight Freeze",
+                                command = flight_freeze_on,
+                                font = (Font_1, 30, BOLD),
+                                background = Un_Clicked_Background,
+                                fg = Un_clicked_Text,
+                                border = 0,
+                                cursor = "hand2"
+                                )
+        flight_freeze_menu.grid(row = 2, column = 0, sticky = W+E+N+S, padx = 2, pady = 4)
+        on_flight_freeze = False
+        full_frame.pack(anchor=N, fill = BOTH, expand = TRUE)
+        print("Flight Freeze", on_flight_freeze)
+    
+
+        flight_freeze = Button(freezes_frame,
+                                    text = "Flight\nFreeze",
+                                    command = flight_freeze_on,
+                                    font = (Font_1, 60, BOLD),
+                                    background = Un_Clicked_Background,
+                                    fg = Un_clicked_Text,
+                                    border = 0,
+                                    cursor = "hand2"
+                                    )
+        flight_freeze.grid(row = 0, column = 0, rowspan = 3, sticky = W+E+N+S, padx = 5, pady = 5)
+        if on_freezes_page:
+            freezes_frame.pack(fill = BOTH, expand = TRUE)
+
     print("Airspeed Freeze")
 
 def fuel_freeze_on():
@@ -250,6 +403,9 @@ def fuel_freeze_on():
                                    cursor = "hand2"
                                    )
     fuel_freeze_button.grid(row = 2, column = 1, sticky = N+E+S+W, padx = 5, pady = 5)
+
+    if heading_freeze == True and position_freeze == True and altitude_freeze == True and airspeed_freeze == True and fuel_freeze == True and time_freeze == True:
+        flight_freeze_on()
 
     print("Fuel Freeze")
     
@@ -268,6 +424,35 @@ def fuel_freeze_off():
                                    )
     fuel_freeze_button.grid(row = 2, column = 1, sticky = N+E+S+W, padx = 5, pady = 5)
 
+    if on_flight_freeze == True:
+        flight_freeze_menu = Button(full_frame,
+                                text = "Flight Freeze",
+                                command = flight_freeze_on,
+                                font = (Font_1, 30, BOLD),
+                                background = Un_Clicked_Background,
+                                fg = Un_clicked_Text,
+                                border = 0,
+                                cursor = "hand2"
+                                )
+        flight_freeze_menu.grid(row = 2, column = 0, sticky = W+E+N+S, padx = 2, pady = 4)
+        on_flight_freeze = False
+        full_frame.pack(anchor=N, fill = BOTH, expand = TRUE)
+        print("Flight Freeze", on_flight_freeze)
+    
+
+        flight_freeze = Button(freezes_frame,
+                                    text = "Flight\nFreeze",
+                                    command = flight_freeze_on,
+                                    font = (Font_1, 60, BOLD),
+                                    background = Un_Clicked_Background,
+                                    fg = Un_clicked_Text,
+                                    border = 0,
+                                    cursor = "hand2"
+                                    )
+        flight_freeze.grid(row = 0, column = 0, rowspan = 3, sticky = W+E+N+S, padx = 5, pady = 5)
+        if on_freezes_page:
+            freezes_frame.pack(fill = BOTH, expand = TRUE)
+
     print("Fuel Freeze")
     
 def time_freeze_on():
@@ -285,6 +470,9 @@ def time_freeze_on():
                                    )
     time_freeze_button.grid(row = 2, column = 2, sticky = N+E+S+W, padx = 5, pady = 5)
 
+    if heading_freeze == True and position_freeze == True and altitude_freeze == True and airspeed_freeze == True and fuel_freeze == True and time_freeze == True:
+        flight_freeze_on()
+
     print("Time Freeze")
     
 def time_freeze_off():
@@ -301,6 +489,35 @@ def time_freeze_off():
                                    cursor = "hand2"
                                    )
     time_freeze_button.grid(row = 2, column = 2, sticky = N+E+S+W, padx = 5, pady = 5)
+
+    if on_flight_freeze == True:
+        flight_freeze_menu = Button(full_frame,
+                                text = "Flight Freeze",
+                                command = flight_freeze_on,
+                                font = (Font_1, 30, BOLD),
+                                background = Un_Clicked_Background,
+                                fg = Un_clicked_Text,
+                                border = 0,
+                                cursor = "hand2"
+                                )
+        flight_freeze_menu.grid(row = 2, column = 0, sticky = W+E+N+S, padx = 2, pady = 4)
+        on_flight_freeze = False
+        full_frame.pack(anchor=N, fill = BOTH, expand = TRUE)
+        print("Flight Freeze", on_flight_freeze)
+    
+
+        flight_freeze = Button(freezes_frame,
+                                    text = "Flight\nFreeze",
+                                    command = flight_freeze_on,
+                                    font = (Font_1, 60, BOLD),
+                                    background = Un_Clicked_Background,
+                                    fg = Un_clicked_Text,
+                                    border = 0,
+                                    cursor = "hand2"
+                                    )
+        flight_freeze.grid(row = 0, column = 0, rowspan = 3, sticky = W+E+N+S, padx = 5, pady = 5)
+        if on_freezes_page:
+            freezes_frame.pack(fill = BOTH, expand = TRUE)
 
     print("Time Freeze")
 
