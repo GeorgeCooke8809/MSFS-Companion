@@ -1,6 +1,8 @@
 #Imports
+from doctest import debug
 from tkinter import *
 from tkinter.font import BOLD
+from SimConnect import *
 
 #Set Version Number
 Version = "0.1.0"
@@ -29,13 +31,14 @@ heading_freeze = False
 position_freeze = False
 altitude_freeze = False
 airspeed_freeze = False
-fuel_freeze = False
-time_freeze = False
 
 on_flight_freeze = False
 
 on_freezes_page = False
 
+
+def new_capture():
+    print("New Capture")
 
 def flight_freeze_on():
     global heading_freeze, position_freeze, altitude_freeze, airspeed_freeze, fuel_freeze, time_freeze, on_flight_freeze, freezes_frame, on_freezes_page
@@ -75,10 +78,6 @@ def flight_freeze_on():
         altitude_freeze_on()
     if airspeed_freeze == False:
         airspeed_freeze_on()
-    if fuel_freeze == False:
-        fuel_freeze_on()
-    if time_freeze == False:
-        time_freeze_on()
         
 def flight_freeze_off():
     global heading_freeze, position_freeze, altitude_freeze, airspeed_freeze, fuel_freeze, time_freeze, on_flight_freeze, freezes_frame, on_freezes_page
@@ -122,8 +121,6 @@ def flight_freeze_off():
     position_freeze_off()
     altitude_freeze_off()
     airspeed_freeze_off()
-    fuel_freeze_off()
-    time_freeze_off()
     
 def heading_freeze_on():
     global heading_freeze, position_freeze, altitude_freeze, airspeed_freeze, fuel_freeze, time_freeze, on_flight_freeze, freezes_frame
@@ -338,7 +335,7 @@ def airspeed_freeze_on():
                                    )
     airspeed_freeze_button.grid(row = 1, column = 2, sticky = N+E+S+W, padx = 5, pady = 5)
 
-    if heading_freeze == True and position_freeze == True and altitude_freeze == True and airspeed_freeze == True and fuel_freeze == True and time_freeze == True:
+    if heading_freeze == True and position_freeze == True and altitude_freeze == True and airspeed_freeze == True:
         flight_freeze_on()
 
     print("Airspeed Freeze")
@@ -389,143 +386,22 @@ def airspeed_freeze_off():
 
     print("Airspeed Freeze")
 
-def fuel_freeze_on():
-    global heading_freeze, position_freeze, altitude_freeze, airspeed_freeze, fuel_freeze, time_freeze, on_flight_freeze, freezes_frame
-    fuel_freeze = True
+def captures_page():
+    global on_freezes_page
     
-    fuel_freeze_button = Button(freezes_frame,
-                                   text = "Fuel\nFreeze",
-                                   command = fuel_freeze_off,
-                                   font = (Font_1, 30, BOLD),
-                                   background = Accent_Background,
-                                   fg = Accent_Text,
-                                   border = 0,
-                                   cursor = "hand2"
-                                   )
-    fuel_freeze_button.grid(row = 2, column = 1, sticky = N+E+S+W, padx = 5, pady = 5)
+    pages_none()
 
-    if heading_freeze == True and position_freeze == True and altitude_freeze == True and airspeed_freeze == True and fuel_freeze == True and time_freeze == True:
-        flight_freeze_on()
+    captures_page_frame.pack(fill = BOTH, expand = TRUE)
 
-    print("Fuel Freeze")
-    
-def fuel_freeze_off():
-    global heading_freeze, position_freeze, altitude_freeze, airspeed_freeze, fuel_freeze, time_freeze, on_flight_freeze, freezes_frame
-    fuel_freeze = False
-    
-    fuel_freeze_button = Button(freezes_frame,
-                                   text = "Fuel\nFreeze",
-                                   command = fuel_freeze_on,
-                                   font = (Font_1, 30, BOLD),
-                                   background = Un_Clicked_Background,
-                                   fg = Un_clicked_Text,
-                                   border = 0,
-                                   cursor = "hand2"
-                                   )
-    fuel_freeze_button.grid(row = 2, column = 1, sticky = N+E+S+W, padx = 5, pady = 5)
+    on_freezes_page = False
 
-    if on_flight_freeze == True:
-        flight_freeze_menu = Button(full_frame,
-                                text = "Flight Freeze",
-                                command = flight_freeze_on,
-                                font = (Font_1, 30, BOLD),
-                                background = Un_Clicked_Background,
-                                fg = Un_clicked_Text,
-                                border = 0,
-                                cursor = "hand2"
-                                )
-        flight_freeze_menu.grid(row = 2, column = 0, sticky = W+E+N+S, padx = 2, pady = 4)
-        on_flight_freeze = False
-        full_frame.pack(anchor=N, fill = BOTH, expand = TRUE)
-        print("Flight Freeze", on_flight_freeze)
-    
-
-        flight_freeze = Button(freezes_frame,
-                                    text = "Flight\nFreeze",
-                                    command = flight_freeze_on,
-                                    font = (Font_1, 60, BOLD),
-                                    background = Un_Clicked_Background,
-                                    fg = Un_clicked_Text,
-                                    border = 0,
-                                    cursor = "hand2"
-                                    )
-        flight_freeze.grid(row = 0, column = 0, rowspan = 3, sticky = W+E+N+S, padx = 5, pady = 5)
-        if on_freezes_page:
-            freezes_frame.pack(fill = BOTH, expand = TRUE)
-
-    print("Fuel Freeze")
-    
-def time_freeze_on():
-    global heading_freeze, position_freeze, altitude_freeze, airspeed_freeze, fuel_freeze, time_freeze, on_flight_freeze, freezes_frame
-    time_freeze = True
-    
-    time_freeze_button = Button(freezes_frame,
-                                   text = "Time\nFreeze",
-                                   command = time_freeze_off,
-                                   font = (Font_1, 30, BOLD),
-                                   background = Accent_Background,
-                                   fg = Accent_Text,
-                                   border = 0,
-                                   cursor = "hand2"
-                                   )
-    time_freeze_button.grid(row = 2, column = 2, sticky = N+E+S+W, padx = 5, pady = 5)
-
-    if heading_freeze == True and position_freeze == True and altitude_freeze == True and airspeed_freeze == True and fuel_freeze == True and time_freeze == True:
-        flight_freeze_on()
-
-    print("Time Freeze")
-    
-def time_freeze_off():
-    global heading_freeze, position_freeze, altitude_freeze, airspeed_freeze, fuel_freeze, time_freeze, on_flight_freeze, freezes_frame
-    time_freeze = False
-    
-    time_freeze_button = Button(freezes_frame,
-                                   text = "Time\nFreeze",
-                                   command = time_freeze_on,
-                                   font = (Font_1, 30, BOLD),
-                                   background = Un_Clicked_Background,
-                                   fg = Un_clicked_Text,
-                                   border = 0,
-                                   cursor = "hand2"
-                                   )
-    time_freeze_button.grid(row = 2, column = 2, sticky = N+E+S+W, padx = 5, pady = 5)
-
-    if on_flight_freeze == True:
-        flight_freeze_menu = Button(full_frame,
-                                text = "Flight Freeze",
-                                command = flight_freeze_on,
-                                font = (Font_1, 30, BOLD),
-                                background = Un_Clicked_Background,
-                                fg = Un_clicked_Text,
-                                border = 0,
-                                cursor = "hand2"
-                                )
-        flight_freeze_menu.grid(row = 2, column = 0, sticky = W+E+N+S, padx = 2, pady = 4)
-        on_flight_freeze = False
-        full_frame.pack(anchor=N, fill = BOTH, expand = TRUE)
-        print("Flight Freeze", on_flight_freeze)
-    
-
-        flight_freeze = Button(freezes_frame,
-                                    text = "Flight\nFreeze",
-                                    command = flight_freeze_on,
-                                    font = (Font_1, 60, BOLD),
-                                    background = Un_Clicked_Background,
-                                    fg = Un_clicked_Text,
-                                    border = 0,
-                                    cursor = "hand2"
-                                    )
-        flight_freeze.grid(row = 0, column = 0, rowspan = 3, sticky = W+E+N+S, padx = 5, pady = 5)
-        if on_freezes_page:
-            freezes_frame.pack(fill = BOTH, expand = TRUE)
-
-    print("Time Freeze")
+    print("Captures Page")
 
 def pages_none():
     global full_frame, button_accent, on_freezes_page
 
     freezes_menu = Button(full_frame,
-                                text = "Freezes",
+                                text = "Flight\nControls",
                                 command = freezes_page,
                                 font = (Font_1, 30, BOLD),
                                 background = Un_Clicked_Background,
@@ -558,7 +434,7 @@ def pages_none():
     map_menu.grid(row = 2, column = 3, sticky = W+E+N+S, padx = 2, pady = 4)
 
     flight_menu = Button(full_frame,
-                                text = "Flight",
+                                text = "Reposition",
                                 command = flight_page,
                                 font = (Font_1, 30, BOLD),
                                 background = Un_Clicked_Background,
@@ -569,7 +445,7 @@ def pages_none():
     flight_menu.grid(row = 2, column = 4, sticky = W+E+N+S, padx = 2, pady = 4)
 
     profile_menu = Button(full_frame,
-                                text = "Profile",
+                                text = "My\nFlights",
                                 command = profile_page,
                                 font = (Font_1, 30, BOLD),
                                 background = Un_Clicked_Background,
@@ -584,6 +460,8 @@ def pages_none():
 
     freezes_frame.pack_forget()
     on_freezes_page = False
+    
+    captures_page_frame.pack_forget()
 
     window_frame.grid(row = 0, column = 0, columnspan = 6)
     full_frame.pack(anchor=N, fill = BOTH, expand = TRUE)
@@ -597,7 +475,7 @@ def freezes_page():
     button_accent.grid(row = 1, column = 1, sticky = W+E+N+S)
 
     freezes_menu = Button(full_frame,
-                                text = "Freezes",
+                                text = "Flight\nControls",
                                 command = freezes_page,
                                 font = (Font_1, 30, BOLD),
                                 background = Clicked_Background,
@@ -608,6 +486,8 @@ def freezes_page():
     freezes_menu.grid(row = 2, column = 1, sticky = W+E+N+S, padx = 2, pady = 4)
     
     freezes_frame.pack(fill = BOTH, expand = TRUE)
+    
+
     print("Freezes Page")
     
 def failures_page():
@@ -661,7 +541,7 @@ def flight_page():
     button_accent.grid(row = 1, column = 4, sticky = W+E+N+S)
 
     flight_menu = Button(full_frame,
-                                text = "Flight",
+                                text = "Reposition",
                                 command = flight_page,
                                 font = (Font_1, 30, BOLD),
                                 background = Clicked_Background,
@@ -682,7 +562,7 @@ def profile_page():
     button_accent.grid(row = 1, column = 5, sticky = W+E+N+S)
 
     profile_menu = Button(full_frame,
-                                text = "Profile",
+                                text = "My\nFlights",
                                 command = profile_page,
                                 font = (Font_1, 30, BOLD),
                                 background = Clicked_Background,
@@ -784,27 +664,16 @@ airspeed_freeze_button = Button(freezes_frame,
                                )
 airspeed_freeze_button.grid(row = 1, column = 2, sticky = N+E+S+W, padx = 5, pady = 5)
 
-fuel_freeze_button = Button(freezes_frame,
-                               text = "Fuel\nFreeze",
-                               command = fuel_freeze_on,
+captures_page_button = Button(freezes_frame,
+                               text = "Captures",
+                               command = captures_page,
                                font = (Font_1, 30, BOLD),
                                background = Un_Clicked_Background,
                                fg = Un_clicked_Text,
                                border = 0,
                                cursor = "hand2"
                                )
-fuel_freeze_button.grid(row = 2, column = 1, sticky = N+E+S+W, padx = 5, pady = 5)
-
-time_freeze_button = Button(freezes_frame,
-                               text = "Time\nFreeze",
-                               command = time_freeze_on,
-                               font = (Font_1, 30, BOLD),
-                               background = Un_Clicked_Background,
-                               fg = Un_clicked_Text,
-                               border = 0,
-                               cursor = "hand2"
-                               )
-time_freeze_button.grid(row = 2, column = 2, sticky = N+E+S+W, padx = 5, pady = 5)
+captures_page_button.grid(row = 2, column = 1,columnspan = 2, sticky = N+E+S+W, padx = 5, pady = 5)
 
 
 
@@ -820,7 +689,7 @@ flight_freeze_menu = Button(full_frame,
 flight_freeze_menu.grid(row = 2, column = 0, sticky = W+E+N+S, padx = 2, pady = 4)
 
 freezes_menu = Button(full_frame,
-                            text = "Freezes",
+                            text = "Flight\nControls",
                             command = freezes_page,
                             font = (Font_1, 30, BOLD),
                             background = Un_Clicked_Background,
@@ -853,7 +722,7 @@ map_menu = Button(full_frame,
 map_menu.grid(row = 2, column = 3, sticky = W+E+N+S, padx = 2, pady = 4)
 
 flight_menu = Button(full_frame,
-                            text = "Flight",
+                            text = "Reposition",
                             command = flight_page,
                             font = (Font_1, 30, BOLD),
                             background = Un_Clicked_Background,
@@ -864,7 +733,7 @@ flight_menu = Button(full_frame,
 flight_menu.grid(row = 2, column = 4, sticky = W+E+N+S, padx = 2, pady = 4)
 
 profile_menu = Button(full_frame,
-                            text = "Profile",
+                            text = "My\nFlights",
                             command = profile_page,
                             font = (Font_1, 30, BOLD),
                             background = Un_Clicked_Background,
@@ -879,5 +748,45 @@ button_accent.grid(row = 1, column = 0, columnspan = 6, sticky = W+E+N+S)
 
 window_frame.grid(row = 0, column = 0, columnspan = 6, sticky = N+E+S+W)
 full_frame.pack(anchor=N, fill = BOTH, expand = TRUE)
+
+captures_page_frame = Frame(window_frame, background = Background)
+
+captures_page_frame.rowconfigure(0)
+captures_page_frame.rowconfigure(1)
+captures_page_frame.rowconfigure(2)
+captures_page_frame.rowconfigure(3)
+captures_page_frame.rowconfigure(4)
+captures_page_frame.rowconfigure(5)
+captures_page_frame.rowconfigure(6)
+captures_page_frame.rowconfigure(7)
+captures_page_frame.rowconfigure(8)
+captures_page_frame.rowconfigure(9)
+
+captures_page_frame.columnconfigure(0, weight = 2)
+captures_page_frame.columnconfigure(1, weight = 3)
+captures_page_frame.columnconfigure(2, weight = 3)
+
+captures_back_button = Button(captures_page_frame,
+                            text = "Back",
+                            command = freezes_page,
+                            font = (Font_1, 30, BOLD),
+                            background = Un_Clicked_Background,
+                            fg = Un_clicked_Text,
+                            border = 0,
+                            cursor = "hand2"
+                            )
+captures_back_button.grid(row = 0, column = 0, sticky = W+E+N+S, padx = 2, pady = 4)
+
+new_capture_button = Button(captures_page_frame,
+                            text = "New Capture",
+                            command = new_capture,
+                            font = (Font_1, 30, BOLD),
+                            background = Un_Clicked_Background,
+                            fg = Un_clicked_Text,
+                            border = 0,
+                            cursor = "hand2"
+                            )
+new_capture_button.grid(row = 1, rowspan = 9, column = 0, sticky = W+E+N+S, padx = 2, pady = 4)
+
 
 root.mainloop()
